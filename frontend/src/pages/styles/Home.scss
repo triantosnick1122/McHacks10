@@ -1,0 +1,44 @@
+$ipadScreenWidth: 95%;
+$smallScreenWidth: 80%;
+$extraLargeScreenWidth: 65%;
+$normalWidth: 50%;
+
+$maxIpadScreenSize: 767px;
+$maxSmallScreenSize: 991px;
+$maxExtraLargeScreenSize: 1399px;
+
+.reddit-subreddit-search-bar {
+    width: $normalWidth;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.submit-btn, .reddit-subreddit-search-bar-header {
+    text-align: center;
+}
+
+.reddit-subreddit-search-bar textarea {
+    resize: none;
+    min-height: 250px;
+}
+
+// Extra large screens
+@media screen and (max-width: $maxExtraLargeScreenSize) {
+    .reddit-subreddit-search-bar {
+        width: $extraLargeScreenWidth;
+    }
+}
+
+// Small screens
+@media screen and (max-width: $maxSmallScreenSize) {
+    .reddit-subreddit-search-bar {
+        width: $smallScreenWidth;
+    }
+}
+
+// Tablets and phones
+@media screen and (max-width: $maxIpadScreenSize) {
+    .reddit-subreddit-search-bar {
+        width: $ipadScreenWidth;
+    }
+}
