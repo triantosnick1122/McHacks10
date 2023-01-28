@@ -1,5 +1,4 @@
 import praw
-import spacyUtils
 
 def init():
     # read secret from first line of config file
@@ -44,10 +43,6 @@ def getTopNComments(subredditName, n):
     sub = reddit.subreddit(subredditName)
     return sub.comments(limit=n)
 
-def post_on_commie_subreddit():
-    postContent = "Another W for capitalism"
-    post_to_sub_by_name("GenZedong", "W", postContent)
-
 # TODO: implement
 def getCommentsMentioningWord(commentsList, word):
     l = list()
@@ -58,13 +53,9 @@ def getTop10kCommentsFromAll():
 if __name__ == "__main__":
     # print("running")
     reddit = init()
-    # post_on_commie_subreddit
-    # post_to_sub_by_name("test", "fucc da commies", "W for capitalism")
-    # for comment in getTop10kCommentsFromAll():
 
-    print(spacyUtils.getSentiment('I love chicken pot pie.'))
+    # for comment in getTop10kCommentsFromAll():
 
 
     for comment in getTopNComments("all", 100):
         print(comment.body)
-        print(spacyUtils.getSentiment(comment.body))
