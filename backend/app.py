@@ -2,8 +2,10 @@ from flask import Flask, Response, request
 import pyodbc
 import server
 import generalUtils as gu
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route("/")
 def confirmWorking():
@@ -23,9 +25,9 @@ def generateCommentsReport(subreddit, sort, nPosts, nComments):
     # return json based on the newly generated report (one tuple in db)
     print ('IMPLEMENT NOW!!!!')
 
-@app.route("/reports/posts/generate/<subreddit>/<sort>/<n>")    
-def generatePostsReport(subreddit, sort, n):
-    percentage = server.get_subreddit_toxicity(subreddit) * 100
+@app.route("/reports/posts/generate/<subreddit>/<sort_type>/<n>")    
+def generatePostsReport(subreddit, sort_type, n):
+    percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
     # generate report
     server.saveGeneratedReport(subreddit, percentage)
     # save in db

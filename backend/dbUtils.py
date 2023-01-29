@@ -25,10 +25,10 @@ def executeInsertOrUpdate(statement):
     connection.commit()
     connection.close()  
 
-def generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    stmt = ("INSERT INTO report (subreddit, timestamp, score, records_analyzed, is_current, is_post) VALUES ('" 
+def generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, sort_type, is_current, is_post):
+    stmt = ("INSERT INTO report (subreddit, timestamp, score, records_analyzed, sort_type, is_current, is_post) VALUES ('" 
             + str(subreddit) + "','" + str(timestamp) + "'," 
-            + str(score) + "," + str(records_analyzed) + "," + str(is_current) + "," 
+            + str(score) + "," + str(records_analyzed) + ",'" + str(sort_type) + "'," + str(is_current) + "," 
             + str(is_post) + ");")
     print ('here')
     print(stmt) 
