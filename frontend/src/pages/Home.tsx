@@ -36,8 +36,8 @@ const HomePage: Component = () => {
             <br/>
             <MainForm/>
             <br/>
-            <TypingText text="Want to know more about a subreddit?" startAfter={0} finishAfter={3}/>
-            <TypingText text="We got everything you need!" startAfter={3} finishAfter={-1}/>
+            <TypingText text="Want to know more about a subreddit?" startWithLine={true} startAfter={0} finishAfter={3}/>
+            <TypingText text="We got everything you need!" startWithLine={false} startAfter={3} finishAfter={-1}/>
             <div class="center">
                 <CircleBar title="Toxicity" value={80}/>
                 <CircleBar title="Misinformation" value={23}/>
