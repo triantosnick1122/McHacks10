@@ -1,7 +1,8 @@
 import cohere
 from cohere.classify import Example
 import random
-import utils
+import utils.utils
+import utils.dbUtils
 import csv
 from typing import List
 
@@ -59,6 +60,14 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
     
     return total_toxicity_val / len(inputs)
 
+"""Saves a generated report to the db"""
+def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
+    insert_stmt(generateInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))
+
+def generateInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post):
+    return "INSERT INTO report (subreddit, timestamp, score, records_analyzed, is_current, is_post) VALUES ('"
+    + subreddit + "','" + timestamp + "'," + score + "," + records_analyzed + "," + is_current + "," + is_post
+    + ");" 
 
 
 # TESTING ================================================================
