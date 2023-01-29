@@ -1,5 +1,6 @@
 from flask import Flask, Response, request
 import pyodbc
+import utils.server as server
 
 app = Flask(__name__)
 
@@ -16,12 +17,16 @@ def helloWorld():
 # or could wait for it
 @app.route("/reports/generate/<subreddit>/<type>/<n>")
 def generateReport(subreddit, type, n):
+    # call saveGeneratedReport with the info from the report
     print ('IMPLEMENT NOW!!!!')
 
 # type can be 'posts' or 'comments'
 @app.route("/reports/retrieve/<subreddit>/<type>")
 def getPreviouslyGeneratedReport(subreddit, type):
-    print ('IMPLEMENT NOW!!!!')
+    if (type == 'posts'):
+        allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 1)
+    else:
+        allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 0)
 
     
 
