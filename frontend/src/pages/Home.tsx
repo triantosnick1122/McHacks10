@@ -34,8 +34,8 @@ const MainForm: Component = () => {
                             setPaddingTop(0);
                             clearInterval(paddingTopInterval);
                             paddingBottomInterval = setInterval(() => {
-                                if (paddingBottom() + STEP >= 700) {
-                                    setPaddingBottom(700);
+                                if (paddingBottom() + STEP >= 750) {
+                                    setPaddingBottom(750);
                                     clearInterval(paddingBottomInterval);
                                 } else {
                                     setPaddingBottom(paddingBottom() + STEP);
