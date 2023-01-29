@@ -74,7 +74,7 @@ def saveGeneratedReport(subreddit, score):
     now = datetime.datetime.now()
     timestamp = now.strftime('%Y-%m-%d %H:%M:%S')
     dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, 100, 1, 1))    
-    setAllReportsNotCurrentExceptForNewest(subreddit, is_post)
+    setAllReportsNotCurrentExceptForNewest(subreddit, 1)
 
 
 
