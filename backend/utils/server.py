@@ -40,7 +40,7 @@ def get_classifications(inputs: List[str]):
     response = cohereClient.classify(  
         model="large",  
         inputs=inputs,  
-        examples=examples
+        examples=get_examples(0.1)
     )
     return response.classifications
 
