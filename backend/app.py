@@ -55,11 +55,3 @@ def getPreviouslyGeneratedCommentsReport(subreddit):
         return gu.__reportFromDbToJson(report)
     # put into a json
 
-
-
-
-
-
-
-if __name__ == '__main__':
-    # app.run()
