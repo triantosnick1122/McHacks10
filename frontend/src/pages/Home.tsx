@@ -29,9 +29,7 @@ const MainForm: Component = () => {
                         <Form.Control type="text" required placeholder="Subreddit" aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
                         <Form.Control.Feedback type="invalid">
                             Please enter a subreddit link.
-                        </Form.Contro`£
-                        
-                        àl.Feedback>
+                        </Form.Control.Feedback>
                     </InputGroup>
                 </Col>
             </Row>
