@@ -108,8 +108,10 @@ def getNewestReportForSubreddit(sub_name, is_post):
 
 # TESTING ================================================================
 
+'''
 from time import time
 start = time()
 print(get_subreddit_toxicity("politics"))
 end = time()
 print(f"Time taken: {end - start}")
+'''
