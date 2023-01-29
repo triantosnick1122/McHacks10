@@ -1,0 +1,12 @@
+
+*** These modified files were found in JOE when it aborted on Sun Jan 29 09:33:21 2023
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+/home/2020/nalmer/McHacks10/.git/MERGE_MSG
+
+*** File '* Startup Log *'
+Processing '/etc/joe/editorrc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/editorrc

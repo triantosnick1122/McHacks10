@@ -6,7 +6,6 @@ import "./styles/Home.scss";
 import CircleBar from "../components/CircleBar";
 
 const MainForm: Component = () => {
-    const [validated, setValidated] = createSignal(false);
     const [redditSublink, setRedditSublink] = createSignal("");
 
     /** Called when the user clicks on the submit button. */
