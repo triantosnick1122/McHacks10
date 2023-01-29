@@ -11,29 +11,17 @@ const MainForm: Component = () => {
 
     /** Called when the user clicks on the submit button. */
     const handleSubmit = (event: SubmitEvent) => {
-        // Get and validate form
-        const form = event.currentTarget as HTMLFormElement;
         event.preventDefault();
-        setValidated(true);
-
-        // If not valid yet
-        if (!(form.checkValidity())) {
-            event.stopPropagation();
-            return;
-        }
     };
 
     return (
-        <Form noValidate validated={validated()} onSubmit={handleSubmit} class="reddit-subreddit-search-bar">
+        <Form onSubmit={handleSubmit} class="reddit-subreddit-search-bar">
             <Row>
                 <Col>
-                    <InputGroup class="mb-3" hasValidation>
+                    <InputGroup class="mb-3">
                         <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
-                        <Form.Control type="text" required placeholder="Subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
-                        <Button type="submit"><SearchIcon/></Button>
-                        <Form.Control.Feedback type="invalid">
-                            Please enter a subreddit name.
-                        </Form.Control.Feedback>
+                        <Form.Control type="text" placeholder="Subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
+                        <Button type="submit" disabled={redditSublink() === ""}><SearchIcon/></Button>
                     </InputGroup>
                 </Col>
             </Row>

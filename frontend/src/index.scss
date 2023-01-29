@@ -1,6 +1,11 @@
 $BACKGROUND_COLOR: rgb(52, 59, 67);
 $TEXT_COLOR: white;
 
+.btn:disabled {
+    pointer-events: all !important;
+    cursor: not-allowed;
+}
+
 body {
     background-color: $BACKGROUND_COLOR;
     color: $TEXT_COLOR;
