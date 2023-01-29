@@ -25,11 +25,13 @@ def generateCommentsReport(subreddit, sort, nPosts, nComments):
 
 @app.route("/reports/posts/generate/<subreddit>/<sort>/<n>")    
 def generatePostsReport(subreddit, sort, n):
-    print("poop")
-    # create a report based on posts
-    # save
-    # return json based on the newly generated report (one tuple in db)
-
+    percentage = server.get_subreddit_toxicity(subreddit) * 100
+    # generate report
+    server.saveGeneratedReport(subreddit, percentage)
+    # save in db
+    # retrieve from db and return as json
+    server.getNewestReportForSubreddit(subreddit, 1)
+    return gu.__reportFromDbToJson
 
 # type can be 'posts' or 'comments'
 @app.route("/reports/posts/retrieve/<subreddit>")
