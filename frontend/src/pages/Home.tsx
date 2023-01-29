@@ -1,6 +1,7 @@
 import { Component, createSignal } from "solid-js";
 import NavMenu from "../components/NavManu";
-import { Button, Col, Form, FormControl, InputGroup, Row } from "solid-bootstrap";
+import { Button, Col, Form, Image, InputGroup, Row } from "solid-bootstrap";
+import SearchOutlinedIcon from '@suid/icons-material/SearchOutlined';
 import "./styles/Home.scss";
 
 const MainForm: Component = () => {
@@ -24,18 +25,14 @@ const MainForm: Component = () => {
         <Form noValidate validated={validated()} onSubmit={handleSubmit} class="reddit-subreddit-search-bar">
             <Row>
                 <Col>
-                    <InputGroup class="mb-3" hasValidation>
-                        <InputGroup.Text id="reddit-subredditlink-addon">reddit.com/r/</InputGroup.Text>
+                    <InputGroup hasValidation>
+                        <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="src/assets/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
                         <Form.Control type="text" required placeholder="Subreddit" aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
+                        <Button type="submit"><SearchOutlinedIcon/></Button>
                         <Form.Control.Feedback type="invalid">
-                            Please enter a subreddit link.
+                            Please enter a subreddit name.
                         </Form.Control.Feedback>
                     </InputGroup>
-                </Col>
-            </Row>
-            <Row>
-                <Col class="submit-btn">
-                    <Button type="submit">Submit</Button>
                 </Col>
             </Row>
         </Form>
@@ -46,8 +43,8 @@ const HomePage: Component = () => {
     return (
         <>
             <NavMenu/>
+            <br/>
             <MainForm/>
-            <p>Main page</p>
         </>
     );
 }

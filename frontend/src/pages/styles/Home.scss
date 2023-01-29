@@ -13,13 +13,12 @@ $maxExtraLargeScreenSize: 1399px;
     margin-right: auto;
 }
 
-.submit-btn, .reddit-subreddit-search-bar-header {
-    text-align: center;
+.reddit-logo {
+    width: 22px;
 }
 
-.reddit-subreddit-search-bar textarea {
-    resize: none;
-    min-height: 250px;
+.submit-btn {
+    text-align: center;
 }
 
 // Extra large screens
