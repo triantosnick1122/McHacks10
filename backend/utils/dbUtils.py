@@ -1,5 +1,5 @@
 import pyodbc
-import utils.generalUtils as gu
+import generalUtils as gu
 
 
 server = gu.getDbServer()
