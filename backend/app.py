@@ -1,6 +1,7 @@
 from flask import Flask, Response, request
 import pyodbc
 import utils.server as server
+import utils.generalUtils as gu
 
 app = Flask(__name__)
 
@@ -35,12 +36,21 @@ def generatePostsReport(subreddit, sort, n):
 def getPreviouslyGeneratedPostsReport(subreddit):
     allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 1)
     report = allCurrent[0] # if none, need to do something
-    # put into a json
+    if report == None:
+        # TODO: what to do?
+        pass
+    else:
+        return gu.__reportFromDbToJson(report)
 
 @app.route("/reports/comments/retrieve/<subreddit>")
 def getPreviouslyGeneratedCommentsReport(subreddit):
     allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 0)
     report = allCurrent[0] # if none, need to do something
+    if report == None:
+        # TODO: what to do?    
+        pass
+    else:
+        return gu.__reportFromDbToJson(report)
     # put into a json
 
 
