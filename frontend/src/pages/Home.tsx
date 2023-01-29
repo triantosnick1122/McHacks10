@@ -4,6 +4,7 @@ import { Button, Col, Form, Image, InputGroup, Row } from "solid-bootstrap";
 import SearchIcon from '@suid/icons-material/Search';
 import "./styles/Home.scss";
 import CircleBar from "../components/CircleBar";
+import TypingText from "../components/TypingText";
 
 const MainForm: Component = () => {
     const [redditSublink, setRedditSublink] = createSignal("");
@@ -35,6 +36,8 @@ const HomePage: Component = () => {
             <br/>
             <MainForm/>
             <br/>
+            <TypingText text="Want to know more about a subreddit?" startAfter={0} finishAfter={3}/>
+            <TypingText text="We got everything you need!" startAfter={3} finishAfter={-1}/>
             <div class="center">
                 <CircleBar title="Toxicity" value={80}/>
                 <CircleBar title="Misinformation" value={23}/>
