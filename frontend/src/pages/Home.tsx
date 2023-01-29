@@ -1,10 +1,13 @@
 import { Component, createSignal } from "solid-js";
 import NavMenu from "../components/NavManu";
-import { Button, Col, Form, FormControl, InputGroup, Row } from "solid-bootstrap";
+import { Button, Col, Form, InputGroup, Row } from "solid-bootstrap";
+import SearchIcon from '@suid/icons-material/Search';
 import "./styles/Home.scss";
+import CircleBar from "../components/CircleBar";
 
 const MainForm: Component = () => {
     const [validated, setValidated] = createSignal(false);
+    const [redditSublink, setRedditSublink] = createSignal("");
 
     /** Called when the user clicks on the submit button. */
     const handleSubmit = (event: SubmitEvent) => {
@@ -26,16 +29,12 @@ const MainForm: Component = () => {
                 <Col>
                     <InputGroup class="mb-3" hasValidation>
                         <InputGroup.Text id="reddit-subredditlink-addon">reddit.com/r/</InputGroup.Text>
-                        <Form.Control type="text" required placeholder="Subreddit" aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
+                        <Form.Control type="text" required placeholder="Subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
+                        <Button type="submit"><SearchIcon/></Button>
                         <Form.Control.Feedback type="invalid">
                             Please enter a subreddit link.
                         </Form.Control.Feedback>
                     </InputGroup>
-                </Col>
-            </Row>
-            <Row>
-                <Col class="submit-btn">
-                    <Button type="submit">Submit</Button>
                 </Col>
             </Row>
         </Form>
@@ -46,8 +45,9 @@ const HomePage: Component = () => {
     return (
         <>
             <NavMenu/>
+            <br/>
             <MainForm/>
-            <p>Main page</p>
+            <CircleBar value={80}/>
         </>
     );
 }
