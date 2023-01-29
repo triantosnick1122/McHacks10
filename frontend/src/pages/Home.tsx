@@ -28,7 +28,7 @@ const MainForm: Component = () => {
             <Row>
                 <Col>
                     <InputGroup class="mb-3" hasValidation>
-                        <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="src/assets/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
+                        <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="assets/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
                         <Form.Control type="text" required placeholder="Subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
                         <Button type="submit"><SearchIcon/></Button>
                         <Form.Control.Feedback type="invalid">
