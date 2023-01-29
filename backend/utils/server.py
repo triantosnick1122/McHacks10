@@ -68,9 +68,14 @@ def get_subreddit_toxicity(subreddit_name: str): # Ideally would be a subreddit 
 
 
 """Saves a generated report to the db"""
-def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
+# def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
+def saveGeneratedReport(subreddit, score):
+    now = datetime.datetime.now()
+    timestamp = now.strftime('%Y-%m-%d %H:%M:%S')
+    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, 100, 1, 1))    
     setAllReportsNotCurrentExceptForNewest(subreddit, is_post)
+
+
 
 def getAllGeneratedReports():
     return dbUtils.select_query('SELECT * from report;')
