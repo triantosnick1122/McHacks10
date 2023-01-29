@@ -13,6 +13,16 @@ $maxExtraLargeScreenSize: 1399px;
     margin-right: auto;
 }
 
+.spin {
+    width: 100px;
+    height: 100px;
+}
+
+.spin-div {
+    margin-top: 325px;
+    margin-bottom: 325px;
+}
+
 .reddit-logo {
     width: 22px;
 }
@@ -28,7 +38,7 @@ $maxExtraLargeScreenSize: 1399px;
     height: 100%;
 }
 
-.home-main-element div {
+.sub-element {
     width: 100%;
 }
 
