@@ -48,14 +48,19 @@ def generatePostsReport(subreddit, sort_type, n):
     return gu.__reportFromDbToJson(report)
 
 @app.route("/scoreboard")
+@cross_origin()
 def getHighestScores():
     allOfEm = server.getAllGeneratedReports()
     l = list()
+    counter = 0
     for item in allOfEm:
         poop = gu.__reportFromDbToJson(item)
         strang = str(poop)
         l.append(json.loads(strang))
         print(json.loads(strang))
+        counter = counter + 1
+        if (counter > 100):
+            break
         # l.append(gu.__reportFromDbToJson(item))
     l.sort(key=operator.itemgetter('score'))
     l.reverse()
