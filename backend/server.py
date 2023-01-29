@@ -60,14 +60,10 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
     
     return total_toxicity_val / len(inputs)
 
+
 """Saves a generated report to the db"""
 def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    dbUtils.execute_insert(generateInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))
-
-def generateInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    return "INSERT INTO report (subreddit, timestamp, score, records_analyzed, is_current, is_post) VALUES ('"
-    + subreddit + "','" + timestamp + "'," + score + "," + records_analyzed + "," + is_current + "," + is_post
-    + ");" 
+    dbUtils.executeInsertOrUpdate(generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
 
 def getAllGeneratedReports():
     return dbUtils.select_query('SELECT * from report')
@@ -81,6 +77,10 @@ def getAllGeneratedReportsForSubreddit(sub_name):
 def getAllCurrentGeneratedReportsForSubreddit(sub_name):
     return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "' AND is_current = 1")
 
+def setAllReportsNotCurrentExceptOne(sub_name, is_post, idOfOneToKeepCurrent):
+    dbUtils.executeInsertOrUpdate(dbUtils.generateUpdateStmtToSetNotCurrent(sub_name, is_post))
+
+    
 
 # TESTING ================================================================
 

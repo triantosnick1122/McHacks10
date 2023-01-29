@@ -7,6 +7,10 @@ __pycache__/
 # ignore stuff in test folder
 /backend/test/
 
+# ignore nick test scripts
+deleteThenReCopyTestStuff.sh
+deleteTestStuff.sh
+
 # Ignore MacOS file info
 .DS_Store
 
