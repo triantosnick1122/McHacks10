@@ -2,10 +2,11 @@ from flask import Flask, Response, request
 import pyodbc
 import server
 import generalUtils as gu
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route("/")
 def confirmWorking():
@@ -25,7 +26,8 @@ def generateCommentsReport(subreddit, sort, nPosts, nComments):
     # return json based on the newly generated report (one tuple in db)
     print ('IMPLEMENT NOW!!!!')
 
-@app.route("/reports/posts/generate/<subreddit>/<sort_type>/<n>")    
+@app.route("/reports/posts/generate/<subreddit>/<sort_type>/<n>")
+@cross_origin()
 def generatePostsReport(subreddit, sort_type, n):
     try: 
         n = int(n)
