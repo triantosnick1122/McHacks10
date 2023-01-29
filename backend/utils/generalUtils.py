@@ -6,6 +6,31 @@ __all__ = (
 
 __ENV_FILE = ".env"
 
+def __reportFromDbToJson(dbRecord) -> json:
+    # id
+    # subreddit
+    # timestamp
+    # score
+    # records_analyzed
+    # is_current
+    # is_post
+
+    if dbRecord.is_post == 1:
+        type = 'posts'
+    else:
+        type = 'comments'
+    
+    data = {
+        "subreddit": str(dbRecord.subreddit),
+        "timestamp": str(dbRecord.timestamp),
+        "score": str(dbRecord.score),
+        "records_analyzed": str(dbRecord.records_analyzed),
+        "report type": str(type),
+        "sorted by": str(dbRecord.sort_type)
+    }
+
+    return json.dumps(data)
+
 def __readEnvFile() -> dict:
     with open(__ENV_FILE) as f:
         return json.load(f)

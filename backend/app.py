@@ -15,20 +15,38 @@ def helloWorld():
 # type can be 'posts' or 'comments'
 # will not return anything? just send a request to generate this report?
 # or could wait for it
-@app.route("/reports/generate/<subreddit>/<type>/<n>")
-def generateReport(subreddit, type, n):
-    # call saveGeneratedReport with the info from the report
+@app.route("/reports/comments/generate/<subreddit>/<sort>/<nPosts>/<nComments>")
+def generateCommentsReport(subreddit, sort, nPosts, nComments):
+    # create a report based on comments
+    # save
+    # return json based on the newly generated report (one tuple in db)
     print ('IMPLEMENT NOW!!!!')
 
-# type can be 'posts' or 'comments'
-@app.route("/reports/retrieve/<subreddit>/<type>")
-def getPreviouslyGeneratedReport(subreddit, type):
-    if (type == 'posts'):
-        allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 1)
-    else:
-        allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 0)
+@app.route("/reports/posts/generate/<subreddit>/<sort>/<n>")    
+def generatePostsReport(subreddit, sort, n):
+    print("poop")
+    # create a report based on posts
+    # save
+    # return json based on the newly generated report (one tuple in db)
 
-    
+
+# type can be 'posts' or 'comments'
+@app.route("/reports/posts/retrieve/<subreddit>")
+def getPreviouslyGeneratedPostsReport(subreddit):
+    allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 1)
+    report = allCurrent[0] # if none, need to do something
+    # put into a json
+
+@app.route("/reports/comments/retrieve/<subreddit>")
+def getPreviouslyGeneratedCommentsReport(subreddit):
+    allCurrent = server.getAllCurrentGeneratedReportsForSubreddit(subreddit, 0)
+    report = allCurrent[0] # if none, need to do something
+    # put into a json
+
+
+
+
+
 
 
 if __name__ == '__main__':
