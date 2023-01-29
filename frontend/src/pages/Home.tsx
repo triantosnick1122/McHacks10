@@ -47,6 +47,7 @@ const HomePage: Component = () => {
             <NavMenu/>
             <br/>
             <MainForm/>
+            <br/>
             <CircleBar value={80}/>
         </>
     );
