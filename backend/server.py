@@ -64,22 +64,34 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
 """Saves a generated report to the db"""
 def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
     dbUtils.executeInsertOrUpdate(generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
+    setAllReportsNotCurrentExceptForNewest(subreddit, is_post)
 
 def getAllGeneratedReports():
-    return dbUtils.select_query('SELECT * from report')
+    return dbUtils.select_query('SELECT * from report;')
 
 def getGeneratedReport(id):
-    return dbUtils.select_query('SELECT * from report where id = ' + id)
+    return dbUtils.select_query('SELECT * from report where id = ' + str(id) + ";")
+
+def getAllCurrentGeneratedReports():
+    return dbUtils.select_query("SELECT * from report where is_current = 1;")
 
 def getAllGeneratedReportsForSubreddit(sub_name):
-    return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "'")
+    return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "';")
 
 def getAllCurrentGeneratedReportsForSubreddit(sub_name):
-    return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "' AND is_current = 1")
+    return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "' AND is_current = 1;")
 
 def setAllReportsNotCurrentExceptOne(sub_name, is_post, idOfOneToKeepCurrent):
-    dbUtils.executeInsertOrUpdate(dbUtils.generateUpdateStmtToSetNotCurrent(sub_name, is_post))
+    dbUtils.executeInsertOrUpdate(dbUtils.generateUpdateStmtToSetNotCurrent(sub_name, is_post, idOfOneToKeepCurrent))
 
+def setAllReportsNotCurrentExceptForNewest(sub_name, is_post):
+    newestId = getNewestReportForSubreddit(sub_name, is_post)
+    if newestId: # don't need to do anything if there were no posts
+        setAllReportsNotCurrentExceptForOne(sub_name, is_post, newestId)    
+
+def getNewestReportForSubreddit(sub_name, is_post):
+    query = "SELECT * from report where subreddit = '" + sub_name + "' AND is_post = " + str(is_post) + "\n SORT BY timestamp DESC;"    
+    results = dbUtils.select_query(query).fetchone()
     
 
 # TESTING ================================================================
