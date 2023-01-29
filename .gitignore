@@ -10,6 +10,7 @@ __pycache__/
 # ignore nick test scripts
 deleteThenReCopyTestStuff.sh
 deleteTestStuff.sh
+runTest.sh
 
 # Ignore MacOS file info
 .DS_Store

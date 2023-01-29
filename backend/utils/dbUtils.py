@@ -1,11 +1,11 @@
 import pyodbc
-import utils
+import generalUtils as gu
 
 
-server = utils.getDbServer()
-name = utils.getDbName()
-username = utils.getDbUsername()
-password = utils.getDbPassword()
+server = gu.getDbServer()
+name = gu.getDbName()
+username = gu.getDbUsername()
+password = gu.getDbPassword()
 
 def select_query(query):
     connection = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+name+';ENCRYPT=yes;UID='+username+';PWD='+ password)
