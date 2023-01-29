@@ -1,13 +1,13 @@
 import cohere
 from cohere.classify import Example
 import random
-import utils.utils as utils
-import utils.dbUtils as dbUtils
+import generalUtils
+import dbUtils
 import csv
 from typing import List
 
 
-cohereClient = cohere.Client(utils.getCohereApiKey())
+cohereClient = cohere.Client(generalUtils.getCohereApiKey())
 
 
 def get_examples(dataset_percentage: float = 1, random_state: int = 13) -> cohere.classify.Example:
@@ -16,6 +16,7 @@ def get_examples(dataset_percentage: float = 1, random_state: int = 13) -> coher
     random.seed(random_state)
     toxic_examples = []
     non_toxic_examples = []
+    
     with open("../data/Social Media Toxicity Dataset.csv", "r", encoding="utf-8") as toxicity_dataset:
         reader = csv.DictReader(toxicity_dataset)
 
@@ -63,7 +64,7 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
 
 """Saves a generated report to the db"""
 def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    dbUtils.executeInsertOrUpdate(generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
+    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
     setAllReportsNotCurrentExceptForNewest(subreddit, is_post)
 
 def getAllGeneratedReports():
@@ -87,7 +88,7 @@ def setAllReportsNotCurrentExceptOne(sub_name, is_post, idOfOneToKeepCurrent):
 def setAllReportsNotCurrentExceptForNewest(sub_name, is_post):
     newestId = getNewestReportForSubreddit(sub_name, is_post)
     if newestId: # don't need to do anything if there were no posts
-        setAllReportsNotCurrentExceptForOne(sub_name, is_post, newestId)    
+        setAllReportsNotCurrentExceptOne(sub_name, is_post, newestId)    
 
 def getNewestReportForSubreddit(sub_name, is_post):
     query = "SELECT * from report where subreddit = '" + sub_name + "' AND is_post = " + str(is_post) + "\n SORT BY timestamp DESC;"    
