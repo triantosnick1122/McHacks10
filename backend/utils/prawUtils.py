@@ -2,14 +2,18 @@ import praw
 from typing import List
 from praw.models import MoreComments
 
-def initReddit(clientId, secret, pw, userAgent, user):
+from generalUtils import getRedditAuth
+
+def initReddit():
+    # reddit_credentials = getRedditAuth()
     # reddit = praw.Reddit(
-    #     client_id=clientId,
-    #     client_secret=secret,
-    #     password=pw,
-    #     user_agent=userAgent,
-    #     username=user,
+    #     client_id=reddit_credentials["client_id"],
+    #     client_secret=reddit_credentials["client_secret"],
+    #     password=reddit_credentials["password"],
+    #     user_agent=reddit_credentials["user_agent"],
+    #     username=["username"]
     # )
+
     reddit = praw.Reddit(
         client_id="wbFt0yKkHjR6CpVp0OYoPA",
         client_secret="bw_4WuZbGzNEACbtpBYTDzXixM9YGw",
@@ -21,7 +25,7 @@ def initReddit(clientId, secret, pw, userAgent, user):
 
 def get_posts_info(subreddit_name: str, post_sort_type: str, num_posts: int) -> List:
     ''' returns list of praw objects representing posts'''
-    reddit = initReddit(0, 0, 0, 0, 0)
+    reddit = initReddit()
     sub = reddit.subreddit(subreddit_name)
     if post_sort_type == "new":
         return sub.new(limit = num_posts)
