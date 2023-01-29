@@ -94,7 +94,7 @@ def getAllCurrentGeneratedReportsForSubreddit(sub_name):
     return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "' AND is_current = 1;")
 
 def setAllReportsNotCurrentExceptForNewest(sub_name, is_post):
-    newestId = getNewestReportForSubreddit(sub_name, is_post)
+    newestId = getNewestReportForSubreddit(sub_name, is_post).id
     setAllReportsNotCurrentExceptForOne(sub_name, is_post, newestId)  
 
 def setAllReportsNotCurrentExceptForOne(sub_name, is_post, idOfOneToKeepCurrent):
@@ -104,7 +104,7 @@ def getNewestReportForSubreddit(sub_name, is_post):
     query = "SELECT * from report where subreddit = '" + sub_name + "' AND is_post = " + str(is_post) + "\n ORDER BY timestamp DESC;"    
     print(query)
     # print (dbUtils.select_query(query))[0]
-    return dbUtils.select_query(query)[0].id
+    return dbUtils.select_query(query)[0]
     
 
 # TESTING ================================================================
