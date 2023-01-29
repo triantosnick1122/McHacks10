@@ -30,8 +30,8 @@ def generatePostsReport(subreddit, sort, n):
     server.saveGeneratedReport(subreddit, percentage)
     # save in db
     # retrieve from db and return as json
-    server.getNewestReportForSubreddit(subreddit, 1)
-    return gu.__reportFromDbToJson
+    report = server.getNewestReportForSubreddit(subreddit, 1)
+    return gu.__reportFromDbToJson(report)
 
 # type can be 'posts' or 'comments'
 @app.route("/reports/posts/retrieve/<subreddit>")
