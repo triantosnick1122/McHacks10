@@ -1,5 +1,5 @@
 import json
-
+from typing import Dict
 __all__ = (
     "getCohereApiKey",
 )
@@ -29,4 +29,6 @@ def getDbName() -> str:
 def getDbServer() -> str:
     """Returns the name of the db"""
     return __readEnvFile()["db_server"]        
-
+def getRedditAuth() -> Dict[str, str]:
+    """Returns the redit auth info"""
+    return __readEnvFile()["redditAuth"]

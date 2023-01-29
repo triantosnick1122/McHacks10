@@ -3,21 +3,15 @@ from typing import List
 from praw.models import MoreComments
 
 from generalUtils import getRedditAuth
-
 def initReddit():
-    # reddit_credentials = getRedditAuth()
-    # reddit = praw.Reddit(
-    #     client_id=reddit_credentials["client_id"],
-    #     client_secret=reddit_credentials["client_secret"],
-    #     password=reddit_credentials["password"],
-    #     user_agent=reddit_credentials["user_agent"],
-    #     username=["username"]
-    # )
+    reddit_credentials = getRedditAuth()
 
     reddit = praw.Reddit(
-        client_id="wbFt0yKkHjR6CpVp0OYoPA",
-        client_secret="bw_4WuZbGzNEACbtpBYTDzXixM9YGw",
-        user_agent="testAPI-python",
+        client_id=reddit_credentials["client_id"],
+        client_secret=reddit_credentials["client_secret"],
+        password=reddit_credentials["password"],
+        user_agent=reddit_credentials["user_agent"],
+        username=reddit_credentials["username"]
     )
     return reddit
 
@@ -65,7 +59,7 @@ def get_comments(subreddit_name: str, post_sort_type: str, num_posts: int, num_c
 from time import time
 
 start = time()
-com_list = get_comments("mcgill", "new", 30, 2)
+com_list = get_comments("mcgill", "hot", 30, 2)
 end = time()
 
 for line in com_list:
