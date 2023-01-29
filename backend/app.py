@@ -3,6 +3,10 @@ import pyodbc
 
 app = Flask(__name__)
 
+@app.route("/")
+def confirmWorking():
+    return "Working"
+
 @app.route("/hello")
 def helloWorld():
     return "Hello World!"
