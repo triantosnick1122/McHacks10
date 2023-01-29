@@ -46,14 +46,14 @@ def get_classifications(inputs: List[str]):
     return response.classifications
 
 
-def get_subreddit_toxicity(subreddit_name: str): # Ideally would be a subreddit name here but for now it will be inputs
+def get_subreddit_toxicity(subreddit_name: str, sort_type: str, number_requests : int): # Ideally would be a subreddit name here but for now it will be inputs
     """
     Find the toxicity value of the specified subreddit.
     Adds 96 since that is the maximum number of inputs accepted in one request to cohere API.
     """
     # Launch reddit API and retrieve list of text inputs
     print("Collecting reddit posts...")
-    inputs = prawUtils.get_posts(subreddit_name, "new", 100)
+    inputs = prawUtils.get_posts(subreddit_name, sort_type , number_requests)
     print("Done collecting reddit posts...")
     start_index = 0
     total_toxicity_val = 0
@@ -70,10 +70,10 @@ def get_subreddit_toxicity(subreddit_name: str): # Ideally would be a subreddit 
 
 """Saves a generated report to the db"""
 # def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-def saveGeneratedReport(subreddit, score):
+def saveGeneratedReport(subreddit, score, num_requests, sort_type):
     now = datetime.datetime.now()
     timestamp = now.strftime('%Y-%m-%d %H:%M:%S')
-    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, 100, 1, 1))    
+    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, sort_type, 1, 1))    
     setAllReportsNotCurrentExceptForNewest(subreddit, 1)
 
 
