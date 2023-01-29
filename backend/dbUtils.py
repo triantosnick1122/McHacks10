@@ -1,13 +1,18 @@
 import pyodbc
+import utils
+
+
+server = getDbServer()
+name = getDbName()
+username = getDbUsername()
+password = getDbPassword()
+
+
 
 
 
 def select_query(query):
-    server = 'toxicity-analyzer.database.windows.net'
-    database = 'toxicity-analyzer-db'
-    username = 'nick'
-    password = 'FuozZy4DK'
-    connection = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+ password)
+    connection = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+name+';ENCRYPT=yes;UID='+username+';PWD='+ password)
     cursor = connection.cursor() # the actual object we use to query
     cursor.execute(query)
     results = cursor.fetchall()
@@ -16,11 +21,7 @@ def select_query(query):
     return results
 
 def insert(statement):
-    server = 'toxicity-analyzer.database.windows.net'
-    database = 'toxicity-analyzer-db'
-    username = 'nick'
-    password = 'FuozZy4DK'
-    connection = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+ password)
+    connection = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server};SERVER='+server+';DATABASE='+name+';ENCRYPT=yes;UID='+username+';PWD='+ password)
     cursor = connection.cursor() # the actual object we use to query
     cursor.execute(statement)
     connection.commit()
