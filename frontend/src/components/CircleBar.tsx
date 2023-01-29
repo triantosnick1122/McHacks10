@@ -2,7 +2,7 @@ import { Component, createEffect, createSignal } from "solid-js";
 import { CircularProgress, CircularProgressIndicator, CircularProgressLabel } from "@hope-ui/solid";
 import "./styles/CircleBar.scss";
 
-const CircleBar: Component<{title: string, value: number}> = (props) => {
+const CircleBar: Component<{title: string, value: number, max: number}> = (props) => {
     const [currValue, setCurrValue] = createSignal(0);
     const [alpha, setAlpha] = createSignal(0);
     let valueInterval = setInterval(() => setCurrValue(currValue() + 1), 1);
@@ -20,7 +20,7 @@ const CircleBar: Component<{title: string, value: number}> = (props) => {
     return (
         <div class="center col-3" style={{display: "inline-block"}}>
             <p class="circle-bar-title">{props.title}</p>
-            <CircularProgress value={currValue()} size="120px">
+            <CircularProgress max={props.max} value={currValue()} size="120px">
                 <CircularProgressIndicator withRoundCaps color={currValue() <= 33? "$success10": currValue() <= 66? "$warning10": "$danger10"}/>
                 <CircularProgressLabel style={{opacity: alpha()}} fontSize="30px"/>
             </CircularProgress>

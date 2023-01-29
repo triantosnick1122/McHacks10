@@ -7,6 +7,8 @@ import CircleBar from "../components/CircleBar";
 import TypingText from "../components/TypingText";
 import { useColorMode } from "@hope-ui/solid";
 
+const [maxNumberOfPosts, setMaxNumberOfPosts] = createSignal("50");
+const [order, setOrder] = createSignal("new");
 const [redditSublink, setRedditSublink] = createSignal("");
 const [data, setData] = createSignal<any>(undefined);
 const [showSpinner, setShowSpinner] = createSignal(false);
@@ -14,7 +16,7 @@ const [showSpinner, setShowSpinner] = createSignal(false);
 const BASE_URL = "http://toxicity-analyzer-app.canadacentral.cloudapp.azure.com:8000/reports/posts/generate/";
 
 const makeRequest = () => {
-    fetch(BASE_URL + redditSublink() + "/new/120", {method: "GET"})
+    fetch(BASE_URL + redditSublink() + "/" + order() + "/" + maxNumberOfPosts(), {method: "GET"})
     .then(resp => {console.log(resp); return resp.json();})
     .then(data => {
         console.log(data);
@@ -86,10 +88,36 @@ const MainForm: Component = () => {
                     <InputGroup class="mb-3">
                         <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
                         <Form.Control type="text" placeholder="Search a subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
-                        <Button type="submit" disabled={redditSublink() === ""}><SearchIcon/></Button>
                     </InputGroup>
                 </Col>
             </Row>
+
+            <Row>
+                <Col>
+                    <InputGroup class="mb-3">
+                        <InputGroup.Text id="reddit-subredditlink-addon">Index by</InputGroup.Text>
+                        <Form.Select value={order()} onChange={e => setOrder(e.currentTarget.value)}>
+                            <option value="new">New</option>
+                            <option value="top">Top</option>
+                            <option value="hot">Hot</option>
+                            <option value="controversial">Controversial</option>
+                        </Form.Select>
+                    </InputGroup>
+                </Col>
+                <Col>
+                    <InputGroup class="mb-3">
+                        <InputGroup.Text id="reddit-subredditlink-addon">Max # of Posts</InputGroup.Text>
+                        <Form.Select value={maxNumberOfPosts()} onChange={e => setMaxNumberOfPosts(e.currentTarget.value)}>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="500">500</option>
+                        </Form.Select>
+                    </InputGroup>
+                </Col>
+            </Row>
+
+            <div class="center"><Button type="submit" disabled={redditSublink() === ""}><SearchIcon/> Search</Button></div>
         </Form>
     );
 }
@@ -109,11 +137,8 @@ const MainPage: Component = () => {
                     data() === undefined?
                         (showSpinner()? <Spin/>: <></>):
                         <div class="center card-div">
-                            <CircleBar title="Toxicity" value={data().score}/>
-                            <div class="center col-3" style={{display: "inline-block"}}>
-                                <p class="circle-bar-title">Number of Posts Analyzed</p>
-                                <p class="circle-bar-title">{data().records_analyzed}</p>
-                            </div>
+                            <CircleBar title="Toxicity" max={100} value={data().score}/>
+                            <CircleBar title="Posts Missing" max={+maxNumberOfPosts()} value={(+maxNumberOfPosts()) - data().records_analyzed}/>
                         </div>
                 }
             </div>
