@@ -73,7 +73,7 @@ def get_subreddit_toxicity(subreddit_name: str, sort_type: str, number_requests 
 def saveGeneratedReport(subreddit, score, num_requests, sort_type):
     now = datetime.datetime.now()
     timestamp = now.strftime('%Y-%m-%d %H:%M:%S')
-    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, sort_type, 1, 1))    
+    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, num_requests, sort_type, 1, 1))    
     setAllReportsNotCurrentExceptForNewest(subreddit, 1)
 
 def getAllGeneratedReports():
