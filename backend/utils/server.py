@@ -3,6 +3,7 @@ from cohere.classify import Example
 import random
 import generalUtils
 import dbUtils
+import prawUtils
 import csv
 from typing import List
 
@@ -44,16 +45,19 @@ def get_classifications(inputs: List[str]):
     return response.classifications
 
 
-def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but for now it will be inputs
+def get_subreddit_toxicity(subreddit_name: str): # Ideally would be a subreddit name here but for now it will be inputs
     """
     Find the toxicity value of the specified subreddit.
     Adds 96 since that is the maximum number of inputs accepted in one request to cohere API.
     """
     # Launch reddit API and retrieve list of text inputs
+    print("Collecting reddit posts...")
+    inputs = prawUtils.get_posts(subreddit_name, "new", 100)
+    print("Done collecting reddit posts...")
     start_index = 0
     total_toxicity_val = 0
     while start_index < len(inputs):
-        print("Making a request to Cohere API")
+        print("Making a request to Cohere API...")
         classifications = get_classifications(inputs[start_index:start_index + 96])
         for classification in classifications:
             total_toxicity_val += classification.labels["Toxic"].confidence
@@ -97,40 +101,8 @@ def getNewestReportForSubreddit(sub_name, is_post):
 
 # TESTING ================================================================
 
-
-
-examples = get_examples(0.1)
-
-# examples = [
-#   Example("you are hot trash", "Toxic"),  
-#   Example("go to hell", "Toxic"),
-#   Example("get rekt moron", "Toxic"),  
-#   Example("get a brain and use it", "Toxic"), 
-#   Example("say what you mean, you jerk.", "Toxic"), 
-#   Example("Are you really this stupid", "Toxic"), 
-#   Example("I will honestly kill you", "Toxic"),  
-#   Example("yo how are you", "Not Toxic"),  
-#   Example("I'm curious, how did that happen", "Not Toxic"),  
-#   Example("Try that again", "Not Toxic"),  
-#   Example("Hello everyone, excited to be here", "Not Toxic"), 
-#   Example("I think I saw it first", "Not Toxic"),  
-#   Example("That is an interesting point", "Not Toxic"), 
-#   Example("I love this", "Not Toxic"), 
-#   Example("We should try that sometime", "Not Toxic"), 
-#   Example("You should go for it", "Not Toxic")
-# ]
-
-inputs = [
-#   "Title: falling asleep in class content: b'I just want to know if anyone else struggles with this and what they do to fix it. Basically I think that my brain is wired to think that class time is the time to take a nap. No matter how many hours of sleep i get the night before i always end up getting sleepy/falling asleep during my classes and it\xe2\x80\x99s getting really frustrating. Most of my class notes end up being gibberish bc i\xe2\x80\x99m always half asleep when type them\xf0\x9f\x98\xad.'",
-#   "Asshole",
-#   "Dumbass",
-#   "Ok",
-#   "The quizzes are HORRIBLE. 45 mins to write 5 multiple choice questions and 2 written out answers that seem so random and vague it makes me want to pull my hair out. The grading rubric is literally the most unfair thing I�ve ever seen in any class: short answer questions are worth 2 pts out of 12.5 and if ANYTHING is wrong in your answer, automatic 0 on the question. I�ll give an example: I had the correct answer and explanation but put the wrong abbreviation for one of the enzymes, lost all the points (that�s 16% of the grade!). Not to mention they use lockdown browser, which is a whole other issue.",
-    "I hate this program"
-]
-
 from time import time
 start = time()
-print(get_subreddit_toxicity(inputs))
+print(get_subreddit_toxicity("politics"))
 end = time()
 print(f"Time taken: {end - start}")

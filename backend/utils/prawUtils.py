@@ -56,12 +56,12 @@ def get_comments(subreddit_name: str, post_sort_type: str, num_posts: int, num_c
     return comments_list
 
 
-from time import time
+# from time import time
 
-start = time()
-com_list = get_comments("mcgill", "hot", 30, 2)
-end = time()
+# start = time()
+# com_list = get_comments("mcgill", "hot", 30, 2)
+# end = time()
 
-for line in com_list:
-    print("New piece of text:", line)
-print(end - start)
+# for line in com_list:
+#     print("New piece of text:", line)
+# print(end - start)
