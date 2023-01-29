@@ -27,6 +27,10 @@ def generateCommentsReport(subreddit, sort, nPosts, nComments):
 
 @app.route("/reports/posts/generate/<subreddit>/<sort_type>/<n>")    
 def generatePostsReport(subreddit, sort_type, n):
+    try: 
+        n = int(n)
+    except Exception: 
+        print("oh, no.")
     percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
     # generate report
     server.saveGeneratedReport(subreddit, percentage)
