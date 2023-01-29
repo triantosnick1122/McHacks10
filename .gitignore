@@ -11,6 +11,7 @@ __pycache__/
 deleteThenReCopyTestStuff.sh
 deleteTestStuff.sh
 runTest.sh
+generateABunchOfShit.py
 
 # Ignore MacOS file info
 .DS_Store

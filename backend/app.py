@@ -31,9 +31,12 @@ def generateCommentsReport(subreddit, sort, nPosts, nComments):
 def generatePostsReport(subreddit, sort_type, n):
     try: 
         n = int(n)
+        percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
+        server.saveGeneratedReport(subreddit, percentage, n, sort_type)
+        report = server.getNewestReportForSubreddit(subreddit, 1)
     except Exception: 
-        print("oh, no.")
-    percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
+        return None
+    # percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
     # generate report
     server.saveGeneratedReport(subreddit, percentage, n, sort_type)
     # save in db
