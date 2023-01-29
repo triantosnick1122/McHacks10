@@ -48,6 +48,7 @@ def generatePostsReport(subreddit, sort_type, n):
     return gu.__reportFromDbToJson(report)
 
 @app.route("/scoreboard")
+@cross_origin()
 def getHighestScores():
     allOfEm = server.getAllGeneratedReports()
     l = list()
