@@ -1,15 +1,12 @@
-import { Component, createSignal, onMount } from "solid-js";
+import { Component, createEffect, createSignal, onMount } from "solid-js";
 import NavMenu from "../components/NavManu";
-import { Button, Col, Form, Image, InputGroup, Row, Spinner, Table } from "solid-bootstrap";
-import SearchIcon from '@suid/icons-material/Search';
+import { Spinner } from "solid-bootstrap";
 import "./styles/Leaderboard.scss";
-import CircleBar from "../components/CircleBar";
-import TypingText from "../components/TypingText";
-import { useColorMode } from "@hope-ui/solid";
+import { Table, Tbody, Td, Th, Thead, Tr, useColorMode } from "@hope-ui/solid";
 
-const [data, setData] = createSignal<any>(undefined);
+const [data1, setData1] = createSignal<any>(undefined);
 
-const BASE_URL = "http://toxicity-analyzer-app.canadacentral.cloudapp.azure.com:8000/reports/posts/generate/";
+const BASE_URL = "http://toxicity-analyzer-app.canadacentral.cloudapp.azure.com:8000/scoreboard";
 
 const Spin: Component = () => {
     const { colorMode, toggleColorMode } = useColorMode();
@@ -17,34 +14,50 @@ const Spin: Component = () => {
 }
 
 const makeRequest = () => {
-    fetch(BASE_URL + "scoreboard")
+    fetch(BASE_URL, {method: "GET"})
     .then(resp => resp.json())
-    .then(data => setData(data));
+    .then(d => setData1(d));
 }
 
-const MainPage: Component = () => {
-    onMount(() => makeRequest());
+const Board: Component = () => {
+    makeRequest();
+
+    createEffect(() => console.log(data1()))
 
     return (
-        data() === undefined? <Spin/>:
-            <div class="center card-div">
-                <CircleBar title="Toxicity" max={100} value={data().score}/>
-                <CircleBar title="Innacuracy" max={100} value={37}/>
-                <div class="center col-3" style={{display: "inline-block"}}>
-                    <p class="circle-bar-title">Posts Analyzed</p>
-                    <p class="circle-bar-title">{data().records_analyzed}</p>
-                </div>
-            </div>
+        data1() === undefined? <Spin/>:
+        <Table striped="odd">
+            <Thead>
+                <Tr>
+                    <Th>Thread</Th>
+                    <Th numeric>Score</Th>
+                    <Th numeric>Posts Analyzed</Th>
+                    <Th>Date Calculated</Th>
+                </Tr>
+            </Thead>
+            <Tbody>
+            {
+                data1().board.forEach((e: any) => (
+                    <Tr>
+                        <Td>{e.subreddit}</Td>
+                        <Td>{e.score}</Td>
+                        <Td>{e.records_analyzed}</Td>
+                        <Td>{e.timestamp}</Td>
+                    </Tr>
+                ))
+            }
+            </Tbody>
+        </Table>
     );
 };
 
-const HomePage: Component = () => {
+const LeaderBoard: Component = () => {
     return (
         <>
             <NavMenu/>
-            <MainPage/>
+            <Board/>
         </>
     );
 }
 
-export default HomePage;
+export default LeaderBoard;
