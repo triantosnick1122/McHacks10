@@ -4,3 +4,4 @@ cohere
 praw
 gunicorn
 datetime
+flask_cors
