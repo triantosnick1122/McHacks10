@@ -1,2 +1,4 @@
 pyodbc
 flask
+cohere
+praw
