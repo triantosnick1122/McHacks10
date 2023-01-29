@@ -76,8 +76,6 @@ def saveGeneratedReport(subreddit, score, num_requests, sort_type):
     dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, sort_type, 1, 1))    
     setAllReportsNotCurrentExceptForNewest(subreddit, 1)
 
-
-
 def getAllGeneratedReports():
     return dbUtils.select_query('SELECT * from report;')
 

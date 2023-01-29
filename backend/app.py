@@ -33,7 +33,7 @@ def generatePostsReport(subreddit, sort_type, n):
         print("oh, no.")
     percentage = server.get_subreddit_toxicity(subreddit, sort_type, n) * 100
     # generate report
-    server.saveGeneratedReport(subreddit, percentage)
+    server.saveGeneratedReport(subreddit, percentage, n, sort_type)
     # save in db
     # retrieve from db and return as json
     report = server.getNewestReportForSubreddit(subreddit, 1)
