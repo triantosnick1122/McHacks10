@@ -2,7 +2,7 @@ from flask import Flask, Response, request
 import pyodbc
 import server
 import generalUtils as gu
-# from flask_cors import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
