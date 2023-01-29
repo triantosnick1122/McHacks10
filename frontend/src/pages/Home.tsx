@@ -137,7 +137,11 @@ const MainPage: Component = () => {
                         (showSpinner()? <Spin/>: <></>):
                         <div class="center card-div">
                             <CircleBar title="Toxicity" max={100} value={data().score}/>
-                            <CircleBar title="Posts Missing" max={+maxNumberOfPosts()} value={(+maxNumberOfPosts()) - data().records_analyzed}/>
+                            <CircleBar title="Innacuracy" max={100} value={37}/>
+                            <div class="center col-3" style={{display: "inline-block"}}>
+                                <p class="circle-bar-title">Posts Analyzed</p>
+                                <p class="circle-bar-title">{data().records_analyzed}</p>
+                            </div>
                         </div>
                 }
             </div>
