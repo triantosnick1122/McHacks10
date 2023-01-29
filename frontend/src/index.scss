@@ -6,6 +6,10 @@ $TEXT_COLOR: white;
     cursor: not-allowed;
 }
 
+#__page {
+    height: 100%;
+}
+
 body {
     background-color: $BACKGROUND_COLOR;
     color: $TEXT_COLOR;
