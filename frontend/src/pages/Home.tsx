@@ -1,6 +1,6 @@
 import { Component, createSignal } from "solid-js";
 import NavMenu from "../components/NavManu";
-import { Button, Col, Form, InputGroup, Row } from "solid-bootstrap";
+import { Button, Col, Form, Image, InputGroup, Row } from "solid-bootstrap";
 import SearchIcon from '@suid/icons-material/Search';
 import "./styles/Home.scss";
 import CircleBar from "../components/CircleBar";
@@ -28,11 +28,11 @@ const MainForm: Component = () => {
             <Row>
                 <Col>
                     <InputGroup class="mb-3" hasValidation>
-                        <InputGroup.Text id="reddit-subredditlink-addon">reddit.com/r/</InputGroup.Text>
+                        <InputGroup.Text id="reddit-subredditlink-addon"><Image class="reddit-logo" src="src/assets/reddit-logo.png" alt="reddit.com"/>&nbsp;&nbsp;r/</InputGroup.Text>
                         <Form.Control type="text" required placeholder="Subreddit" value={redditSublink()} onInput={e => setRedditSublink(e.currentTarget.value)} aria-label="Subreddit" aria-describedby="reddit-subredditlink-addon"/>
                         <Button type="submit"><SearchIcon/></Button>
                         <Form.Control.Feedback type="invalid">
-                            Please enter a subreddit link.
+                            Please enter a subreddit name.
                         </Form.Control.Feedback>
                     </InputGroup>
                 </Col>

@@ -19,7 +19,7 @@ def init():
         client_id=clientId,
         client_secret=secret,
         password=pw,
-        user_agent="AntiCommie-bot",
+        user_agent="",
         username=user,
     )
 

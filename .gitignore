@@ -4,6 +4,14 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# ignore stuff in test folder
+/backend/test/
+
+# ignore nick test scripts
+deleteThenReCopyTestStuff.sh
+deleteTestStuff.sh
+runTest.sh
+
 # Ignore MacOS file info
 .DS_Store
 
