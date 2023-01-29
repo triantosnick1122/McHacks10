@@ -1,4 +1,4 @@
-import { Component, createSignal } from "solid-js";
+import { Component, createEffect, createSignal } from "solid-js";
 import NavMenu from "../components/NavManu";
 import { Button, Col, Form, Image, InputGroup, Row } from "solid-bootstrap";
 import SearchIcon from '@suid/icons-material/Search';
@@ -6,12 +6,50 @@ import "./styles/Home.scss";
 import CircleBar from "../components/CircleBar";
 import TypingText from "../components/TypingText";
 
+const [opacity, setOpacity] = createSignal(1);
+const [paddingTop, setPaddingTop] = createSignal(200);
+const [paddingBottom, setPaddingBottom] = createSignal(100);
+
+let opacityInterval = -1;
+let paddingTopInterval = -1;
+let paddingBottomInterval = -1;
+
+const STEP = 10;
+const INTERVAL = 5;
+
 const MainForm: Component = () => {
     const [redditSublink, setRedditSublink] = createSignal("");
 
     /** Called when the user clicks on the submit button. */
     const handleSubmit = (event: SubmitEvent) => {
         event.preventDefault();
+        if (opacity() !== 0) {
+            opacityInterval = setInterval(() => {
+                if (opacity() - 0.1 <= 0) {
+                    setOpacity(0);
+                    clearInterval(opacityInterval);
+                    setPaddingTop(360);
+                    paddingTopInterval = setInterval(() => {
+                        if (paddingTop() - STEP <= 0) {
+                            setPaddingTop(0);
+                            clearInterval(paddingTopInterval);
+                            paddingBottomInterval = setInterval(() => {
+                                if (paddingBottom() + STEP >= 700) {
+                                    setPaddingBottom(700);
+                                    clearInterval(paddingBottomInterval);
+                                } else {
+                                    setPaddingBottom(paddingBottom() + STEP);
+                                }
+                            }, INTERVAL);
+                        } else {
+                            setPaddingTop(paddingTop() - STEP);
+                        }
+                    }, INTERVAL);
+                } else {
+                    setOpacity(opacity() - 0.1);
+                }
+            }, 20);
+        }
     };
 
     return (
@@ -33,11 +71,13 @@ const MainPage: Component = () => {
     return (
         <div class="home-main-element">
             <div>
-                <TypingText text="Want to know more about a subreddit?" startWithLine={true} startAfter={0} finishAfter={2}/>
-                <TypingText text="We got everything you need!" startWithLine={true} startAfter={2} finishAfter={-1}/>
-                <br/><br/><br/><br/>
-                <MainForm/>
-                <br/><br/><br/>
+                <div style={{opacity: opacity(), display: (opacity() === 0? "none": "block")}}>
+                    <TypingText text="Want to know more about a subreddit?" startWithLine={true} startAfter={0} finishAfter={2}/>
+                    <TypingText text="We got everything you need!" startWithLine={true} startAfter={2} finishAfter={-1}/>
+                </div>
+                <div style={{"margin-top": paddingTop() + "px", "margin-bottom": paddingBottom() + "px"}}>
+                    <MainForm/>
+                </div>
             </div>
         </div>
     );
