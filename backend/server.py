@@ -92,7 +92,7 @@ inputs = [
 #   "Dumbass",
 #   "Ok",
 #   "The quizzes are HORRIBLE. 45 mins to write 5 multiple choice questions and 2 written out answers that seem so random and vague it makes me want to pull my hair out. The grading rubric is literally the most unfair thing I�ve ever seen in any class: short answer questions are worth 2 pts out of 12.5 and if ANYTHING is wrong in your answer, automatic 0 on the question. I�ll give an example: I had the correct answer and explanation but put the wrong abbreviation for one of the enzymes, lost all the points (that�s 16% of the grade!). Not to mention they use lockdown browser, which is a whole other issue.",
-  "This comment is toxic"
+    "I hate this program"
 ]
 
 from time import time
