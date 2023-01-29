@@ -3,6 +3,10 @@ import { render } from "solid-js/web";
 import { Router } from "@solidjs/router";
 import "./index.scss";
 import App from "./App";
-import { HopeProvider } from "@hope-ui/solid";
+import { HopeProvider, HopeThemeConfig } from "@hope-ui/solid";
 
-render(() => <Router><HopeProvider><App/></HopeProvider></Router>, document.getElementById("__page") as HTMLElement);
+const config: HopeThemeConfig = {
+    initialColorMode: "dark"
+}
+
+render(() => <Router><HopeProvider config={config}><App/></HopeProvider></Router>, document.getElementById("__page") as HTMLElement);

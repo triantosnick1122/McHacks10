@@ -1,12 +1,15 @@
+import { useColorMode } from "@hope-ui/solid";
 import { Container, Nav, Navbar } from "solid-bootstrap";
 import type { Component } from "solid-js";
 import ThemeSwitcher from "./ThemeSwitcher";
 
 const NavMenu: Component = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
+
     return (
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg={colorMode()} variant={(colorMode() === "light"? "light": "dark")}>
             <Container>
-                <Navbar.Brand href="/">RedditSafe</Navbar.Brand>
+                <Navbar.Brand>RedditSafe</Navbar.Brand>
                     <Navbar.Toggle/>
                     <Navbar.Collapse>
                         <Nav class="me-auto">

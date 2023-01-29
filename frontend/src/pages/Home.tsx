@@ -48,7 +48,11 @@ const HomePage: Component = () => {
             <br/>
             <MainForm/>
             <br/>
-            <CircleBar value={80}/>
+            <div class="center">
+                <CircleBar title="Toxicity" value={80}/>
+                <CircleBar title="Misinformation" value={23}/>
+                <CircleBar title="Duplicate Data" value={57}/>
+            </div>
         </>
     );
 }
