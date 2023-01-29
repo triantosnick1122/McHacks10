@@ -3,6 +3,9 @@ import pyodbc
 import server
 import generalUtils as gu
 from flask_cors import CORS, cross_origin
+import dbUtils as dbu
+import operator
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -44,6 +47,22 @@ def generatePostsReport(subreddit, sort_type, n):
     report = server.getNewestReportForSubreddit(subreddit, 1)
     return gu.__reportFromDbToJson(report)
 
+@app.route("/scoreboard")
+def getHighestScores():
+    allOfEm = server.getAllGeneratedReports()
+    l = list()
+    for item in allOfEm:
+        poop = gu.__reportFromDbToJson(item)
+        strang = str(poop)
+        l.append(json.loads(strang))
+        print(json.loads(strang))
+        # l.append(gu.__reportFromDbToJson(item))
+    l.sort(key=operator.itemgetter('score'))
+    l.reverse()
+    ret = {}
+    ret["board"] = l
+    return ret
+
 # type can be 'posts' or 'comments'
 @app.route("/reports/posts/retrieve/<subreddit>")
 def getPreviouslyGeneratedPostsReport(subreddit):
@@ -65,4 +84,7 @@ def getPreviouslyGeneratedCommentsReport(subreddit):
     else:
         return gu.__reportFromDbToJson(report)
     # put into a json
+
+
+ 
 
