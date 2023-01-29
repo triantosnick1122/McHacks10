@@ -16,6 +16,7 @@ const NavMenu: Component = () => {
                     <Navbar.Collapse>
                         <Nav class="me-auto">
                             <Nav.Link href="/">Thread Info</Nav.Link>
+                            <Nav.Link href="/leaderboard">Leaderboard</Nav.Link>
                             <Nav.Link href="/contact">Contact</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>

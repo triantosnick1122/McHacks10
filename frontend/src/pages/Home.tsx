@@ -1,4 +1,4 @@
-import { Component, createEffect, createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import NavMenu from "../components/NavManu";
 import { Button, Col, Form, Image, InputGroup, Row, Spinner } from "solid-bootstrap";
 import SearchIcon from '@suid/icons-material/Search';
