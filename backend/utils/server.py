@@ -1,13 +1,13 @@
 import cohere
 from cohere.classify import Example
 import random
-import utils.generalUtils as utils
-import utils.dbUtils as dbUtils
+import generalUtils
+import dbUtils
 import csv
 from typing import List
 
 
-'''cohereClient = cohere.Client(utils.getCohereApiKey())
+cohereClient = cohere.Client(generalUtils.getCohereApiKey())
 
 
 def get_examples(dataset_percentage: float = 1, random_state: int = 13) -> cohere.classify.Example:
@@ -16,6 +16,7 @@ def get_examples(dataset_percentage: float = 1, random_state: int = 13) -> coher
     random.seed(random_state)
     toxic_examples = []
     non_toxic_examples = []
+    
     with open("../data/Social Media Toxicity Dataset.csv", "r", encoding="utf-8") as toxicity_dataset:
         reader = csv.DictReader(toxicity_dataset)
 
@@ -59,7 +60,7 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
         start_index += 96
     
     return total_toxicity_val / len(inputs)
-'''
+
 
 
 """Saves a generated report to the db"""
@@ -95,7 +96,7 @@ def getNewestReportForSubreddit(sub_name, is_post):
     # print (dbUtils.select_query(query))[0]
     return dbUtils.select_query(query)[0].id
     
-'''
+
 # TESTING ================================================================
 
 
@@ -135,4 +136,3 @@ start = time()
 print(get_subreddit_toxicity(inputs))
 end = time()
 print(f"Time taken: {end - start}")
-'''
