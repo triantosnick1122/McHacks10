@@ -7,7 +7,9 @@ const NavMenu: Component = () => {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
-        <Navbar bg={colorMode()} variant={(colorMode() === "light"? "light": "dark")}>
+        <Navbar bg={colorMode()} variant={(colorMode() === "light"? "light": "dark")} style={{
+            "border-bottom": "1px solid " + (colorMode() === "light"? "black": "white")
+        }}>
             <Container>
                 <Navbar.Brand>RedditSafe</Navbar.Brand>
                     <Navbar.Toggle/>
