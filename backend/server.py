@@ -1,13 +1,13 @@
 import cohere
 from cohere.classify import Example
 import random
-import utils.utils as utils
+import utils.generalUtils as utils
 import utils.dbUtils as dbUtils
 import csv
 from typing import List
 
 
-cohereClient = cohere.Client(utils.getCohereApiKey())
+'''cohereClient = cohere.Client(utils.getCohereApiKey())
 
 
 def get_examples(dataset_percentage: float = 1, random_state: int = 13) -> cohere.classify.Example:
@@ -59,11 +59,12 @@ def get_subreddit_toxicity(inputs): # Ideally would be a subreddit name here but
         start_index += 96
     
     return total_toxicity_val / len(inputs)
+'''
 
 
 """Saves a generated report to the db"""
 def saveGeneratedReport(subreddit, timestamp, score, records_analyzed, is_current, is_post):
-    dbUtils.executeInsertOrUpdate(generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
+    dbUtils.executeInsertOrUpdate(dbUtils.generateFullInsertStmt(subreddit, timestamp, score, records_analyzed, is_current, is_post))    
     setAllReportsNotCurrentExceptForNewest(subreddit, is_post)
 
 def getAllGeneratedReports():
@@ -81,19 +82,20 @@ def getAllGeneratedReportsForSubreddit(sub_name):
 def getAllCurrentGeneratedReportsForSubreddit(sub_name):
     return dbUtils.select_query("SELECT * from report where subreddit = '" + sub_name + "' AND is_current = 1;")
 
-def setAllReportsNotCurrentExceptOne(sub_name, is_post, idOfOneToKeepCurrent):
-    dbUtils.executeInsertOrUpdate(dbUtils.generateUpdateStmtToSetNotCurrent(sub_name, is_post, idOfOneToKeepCurrent))
-
 def setAllReportsNotCurrentExceptForNewest(sub_name, is_post):
     newestId = getNewestReportForSubreddit(sub_name, is_post)
-    if newestId: # don't need to do anything if there were no posts
-        setAllReportsNotCurrentExceptForOne(sub_name, is_post, newestId)    
+    setAllReportsNotCurrentExceptForOne(sub_name, is_post, newestId)  
+
+def setAllReportsNotCurrentExceptForOne(sub_name, is_post, idOfOneToKeepCurrent):
+    dbUtils.executeInsertOrUpdate(dbUtils.generateUpdateStmtToSetNotCurrent(sub_name, is_post, idOfOneToKeepCurrent))
 
 def getNewestReportForSubreddit(sub_name, is_post):
-    query = "SELECT * from report where subreddit = '" + sub_name + "' AND is_post = " + str(is_post) + "\n SORT BY timestamp DESC;"    
-    results = dbUtils.select_query(query).fetchone()
+    query = "SELECT * from report where subreddit = '" + sub_name + "' AND is_post = " + str(is_post) + "\n ORDER BY timestamp DESC;"    
+    print(query)
+    # print (dbUtils.select_query(query))[0]
+    return dbUtils.select_query(query)[0].id
     
-
+'''
 # TESTING ================================================================
 
 
@@ -133,3 +135,4 @@ start = time()
 print(get_subreddit_toxicity(inputs))
 end = time()
 print(f"Time taken: {end - start}")
+'''
