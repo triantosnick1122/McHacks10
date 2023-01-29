@@ -1,7 +1,7 @@
 from flask import Flask, Response, request
 import pyodbc
-import utils.server as server
-import utils.generalUtils as gu
+import server
+import generalUtils as gu
 
 app = Flask(__name__)
 
