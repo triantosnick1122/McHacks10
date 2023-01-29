@@ -17,9 +17,8 @@ const BASE_URL = "http://toxicity-analyzer-app.canadacentral.cloudapp.azure.com:
 
 const makeRequest = () => {
     fetch(BASE_URL + redditSublink() + "/" + order() + "/" + maxNumberOfPosts(), {method: "GET"})
-    .then(resp => {console.log(resp); return resp.json();})
+    .then(resp => resp.json())
     .then(data => {
-        console.log(data);
         setData(data);
         setShowSpinner(false);
     });
