@@ -11,17 +11,10 @@ const [redditSublink, setRedditSublink] = createSignal("");
 const [data, setData] = createSignal<any>(undefined);
 const [showSpinner, setShowSpinner] = createSignal(false);
 
-const BASE_URL = "http://toxicity-analyzer-backend.canadacentral.cloudapp.azure.com:8000/reports/posts/generate/";
+const BASE_URL = "http://toxicity-analyzer-app.canadacentral.cloudapp.azure.com:8000/reports/posts/generate/";
 
 const makeRequest = () => {
-    fetch(BASE_URL + redditSublink + "/new/120", {
-        method: "GET", 
-        headers: new Headers({
-            'Accept': 'application/json',
-            'Access-Control-Allow-Origin':'http://localhost:3000/',
-            'Content-Type': 'application/json',
-        }),
-    })
+    fetch(BASE_URL + redditSublink() + "/new/120", {method: "GET"})
     .then(resp => {console.log(resp); return resp.json();})
     .then(data => {
         console.log(data);
@@ -49,6 +42,7 @@ const MainForm: Component = () => {
     /** Called when the user clicks on the submit button. */
     const handleSubmit = (event: SubmitEvent) => {
         event.preventDefault();
+        setData(undefined);
 
         // Animation
         if (opacity() !== 0) {
@@ -78,6 +72,8 @@ const MainForm: Component = () => {
                     setOpacity(opacity() - 0.1);
                 }
             }, 20);
+        } else {
+            setShowSpinner(true);
         }
 
         makeRequest();
@@ -95,7 +91,7 @@ const MainForm: Component = () => {
                 </Col>
             </Row>
         </Form>
-    )
+    );
 }
 
 const MainPage: Component = () => {
@@ -112,7 +108,13 @@ const MainPage: Component = () => {
                 {
                     data() === undefined?
                         (showSpinner()? <Spin/>: <></>):
-                        <div class="center"><CircleBar title="Toxicity" value={data().score}/></div>
+                        <div class="center card-div">
+                            <CircleBar title="Toxicity" value={data().score}/>
+                            <div class="center col-3" style={{display: "inline-block"}}>
+                                <p class="circle-bar-title">Number of Posts Analyzed</p>
+                                <p class="circle-bar-title">{data().records_analyzed}</p>
+                            </div>
+                        </div>
                 }
             </div>
         </div>
